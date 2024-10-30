@@ -1,4 +1,4 @@
-name = "tinygo-worker"
+name = "image-server"
 main = "./build/worker.mjs"
 compatibility_date = "2024-04-15"
 
