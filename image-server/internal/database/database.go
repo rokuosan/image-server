@@ -21,12 +21,11 @@ func New() *Database {
 		return db
 	}
 
-	d := &Database{}
-	d.init()
-	return d
+	connect()
+	return db
 }
 
-func (d *Database) init() {
+func connect() {
 	var err error
 	if tz, err = time.LoadLocation("Asia/Tokyo"); err != nil {
 		panic(err)
