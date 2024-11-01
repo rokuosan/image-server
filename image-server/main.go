@@ -1,13 +1,14 @@
 package main
 
 import (
-	"net/http"
+	"github.com/labstack/echo/v4"
+	"github.com/rokuosan/image-server/internal/router"
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello, World!"))
-	})
+	e := echo.New()
+	r := router.NewRouter()
+	r.Configure(e)
 
-	http.ListenAndServe(":8080", nil)
+	e.Logger.Fatal(e.Start(":8080"))
 }
