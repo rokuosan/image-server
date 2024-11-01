@@ -1,0 +1,29 @@
+services:
+  server:
+    build:
+      context: ./image-server
+      dockerfile: ../Dockerfile
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./image-server:/app
+      - ./tmp/server:/data
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:9.0.1
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: image_server
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testuser
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 2s
+      retries: 10
+    ports:
+      - "3306:3306"

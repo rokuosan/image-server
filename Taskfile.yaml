@@ -1,0 +1,39 @@
+version: '3'
+
+silent: true
+
+tasks:
+  default:
+    cmds:
+      - "task -a"
+
+  clean:
+    desc: ローカル開発環境をクリーンアップします
+    cmds:
+      - "task local:down"
+      - "rm -rf ./tmp"
+
+  compose:
+    desc: "Docker Compose Wrapper (実行例: task compose -- up)"
+    cmds:
+      - "docker compose -f compose.yaml {{ .CLI_ARGS }}"
+
+  local:up:
+    desc: ローカル開発環境を起動します。
+    cmds:
+      - "task compose -- up"
+
+  local:build:
+    desc: ローカル開発環境のイメージをビルドします。
+    cmds:
+      - "task compose -- build"
+
+  local:logs:
+    desc: ローカル開発環境のログを表示します。
+    cmds:
+      - "task compose -- logs"
+
+  local:down:
+    desc: ローカル開発環境を停止します。
+    cmds:
+      - "task compose -- down --remove-orphans"
