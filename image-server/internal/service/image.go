@@ -37,8 +37,8 @@ func FindImageById(db *database.Database, id int64) (*model.Image, error) {
 }
 
 func FindImageByContentDigest(db *database.Database, digest string) (*model.Image, error) {
-	image := &model.Image{Digest: digest}
-	res := db.Find(image)
+	image := &model.Image{}
+	res := db.Find(image, "sha256_digest = ?", digest)
 	if res.Error != nil {
 		return nil, res.Error
 	}
