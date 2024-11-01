@@ -26,6 +26,6 @@ services:
       timeout: 2s
       retries: 10
     volumes:
-      - ./database/schema.sql:/docker-entrypoint-initdb.d
+      - ./database/:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
