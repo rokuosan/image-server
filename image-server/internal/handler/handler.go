@@ -20,6 +20,7 @@ func Handlers() []Handler {
 		NewImageHandler(),
 		NewContentHandler(),
 		NewUploadHandler(),
+		NewContentViewHandler(),
 	}
 }
 
