@@ -24,10 +24,6 @@ func (h *UploadHandler) GET(c echo.Context) error {
 
 func (h *UploadHandler) POST(c echo.Context) error {
 	db := database.New()
-	id, err := ParamsInt64(c, "id")
-	if err != nil {
-		return c.JSON(400, map[string]string{"error": "Invalid ID"})
-	}
 
 	// Content-Type チェック
 	contentType := c.Request().Header.Get("Content-Type")
@@ -35,18 +31,8 @@ func (h *UploadHandler) POST(c echo.Context) error {
 		return c.JSON(400, map[string]string{"error": "Invalid Content-Type"})
 	}
 
-	// 既存のコンテンツデータがあるか確認
-	exist, err := service.FindContentById(db, id)
-	if err != nil {
-		return c.JSON(500, map[string]string{"error": "Internal Server Error"})
-	}
-	if exist != nil {
-		return c.JSON(400, map[string]string{"error": "Content already exists)"})
-	}
-
 	// リクエストをContent-Typeに応じて解析
-	content := model.Content{Id: id}
-	image := model.Image{}
+	content := model.Content{}
 	if contentType == "application/json" {
 		body := &struct {
 			Name      string `json:"name"`
@@ -86,7 +72,7 @@ func (h *UploadHandler) POST(c echo.Context) error {
 		return c.JSON(400, map[string]string{"error": "Invalid Content-Type"})
 	}
 
-	result := db.Create(&image)
+	result := db.Create(&content)
 	if result.Error != nil {
 		return c.JSON(500, map[string]string{"error": "Internal Server Error"})
 	}
