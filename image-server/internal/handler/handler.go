@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -18,6 +19,10 @@ func Handlers() []Handler {
 	return []Handler{
 		NewImageHandler(),
 	}
+}
+
+func ParamsInt64(c echo.Context, id string) (int64, error) {
+	return strconv.ParseInt(c.Param(id), 10, 64)
 }
 
 func MethodNotAllowed(c echo.Context) error {
