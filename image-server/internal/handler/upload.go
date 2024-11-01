@@ -10,8 +10,8 @@ import (
 
 type UploadHandler struct{}
 
-func NewUploadHandler() *ImageHandler {
-	return &ImageHandler{}
+func NewUploadHandler() *UploadHandler {
+	return &UploadHandler{}
 }
 
 func (h *UploadHandler) Route() string {
