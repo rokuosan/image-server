@@ -2,14 +2,18 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"image"
+	"net/http"
 
 	"github.com/disintegration/imaging"
 )
 
 func main() {
-	fmt.Println("Hello, World!")
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Hello, World!"))
+	})
+
+	http.ListenAndServe(":8080", nil)
 }
 
 func ResizeImage(img image.Image, width int, height int) (image.Image, error) {
