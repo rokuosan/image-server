@@ -7,6 +7,7 @@ import (
 	"github.com/go-sql-driver/mysql"
 	gormMySQL "gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 type Database struct {
@@ -22,6 +23,7 @@ func New() *Database {
 	}
 
 	connect()
+	db.Logger = db.Logger.LogMode(logger.Info)
 	return db
 }
 
