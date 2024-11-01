@@ -10,7 +10,7 @@ tasks:
   clean:
     desc: ローカル開発環境をクリーンアップします
     cmds:
-      - "task local:down"
+      - "task down"
       - "rm -rf ./tmp"
 
   compose:
